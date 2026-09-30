@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Tenaz — ¿cómo venís?</title>
+<meta name="description" content="Entrenamiento, comida, ánimo y descanso en un solo lugar. Anotás tu día en menos de un minuto y al final del mes Tenaz te cuenta qué pasó.">
+<meta name="theme-color" content="#143527">
+<link rel="icon" type="image/png" sizes="64x64" href="favicon-64.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+
+<meta property="og:title" content="Tenaz — ¿cómo venís?">
+<meta property="og:description" content="Anotás tu día en menos de un minuto. Al final del mes, Tenaz te cuenta qué pasó.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="es_AR">
+<meta property="og:image" content="https://tenaz.com.ar/img/calendario-claro.webp">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Hanken+Grotesk:wght@400;500;600;700&family=Sometype+Mono:wght@500;600&display=swap" rel="stylesheet">
+
+<style>
+/* ===================================================================
+   Los mismos tokens que la app. La landing y el producto tienen que
+   leerse como una sola cosa, no como una campaña y un software.
+   =================================================================== */
+:root{
+  --pitch:#1d4b39; --pitch-deep:#143527; --pitch-night:#0d211a;
+  --accent:#e2643a; --accent-soft:#f3b48f; --accent-deep:#b54a26;
+  --tiza:#eef3ef; --bg:#eef0ec; --surface:#fff;
+  --ink:#1a201d; --ink-soft:#69736d; --ink-faint:#9aa39c;
+  --line:#e7e9e5;
+  --display:"Bricolage Grotesque",sans-serif;
+  --texto:"Hanken Grotesk",system-ui,sans-serif;
+  --mono:"Sometype Mono",monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--ink);font-family:var(--texto);
+  font-size:17px;line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+
+/* La tipografía es el gesto principal: escala con el viewport y llega a
+   tamaños que en una web común no se usan. De ahí sale casi todo el impacto. */
+h1,h2,h3{font-family:var(--display);letter-spacing:-.035em;line-height:.95;font-weight:800}
+.gigante{font-size:clamp(3.1rem,13vw,10.5rem)}
+.grande{font-size:clamp(2.3rem,7.2vw,5.4rem);line-height:1}
+.media{font-size:clamp(1.6rem,3.6vw,2.6rem);line-height:1.05}
+.eyebrow{font-family:var(--mono);font-size:clamp(10px,1.4vw,12px);letter-spacing:.24em;
+  text-transform:uppercase;font-weight:600}
+.env{max-width:1180px;margin:0 auto;padding:0 24px}
+/* La barra es fija: sin esto un enlace ancla deja el título debajo de ella. */
+section[id]{scroll-margin-top:84px}
+.angosto{max-width:760px}
+
+/* ---------- barra ---------- */
+.nav{position:fixed;top:0;left:0;right:0;z-index:50;padding:14px 0;
+  transition:background .3s ease,backdrop-filter .3s ease,border-color .3s ease;
+  border-bottom:1px solid transparent}
+.nav.pegada{background:rgba(13,33,26,.82);backdrop-filter:blur(18px) saturate(1.4);
+  -webkit-backdrop-filter:blur(18px) saturate(1.4);border-bottom-color:rgba(255,255,255,.09)}
+.nav .env{display:flex;align-items:center;justify-content:space-between;gap:16px}
+.marca{display:flex;align-items:center;gap:10px;color:var(--tiza);text-decoration:none}
+.marca svg{width:30px;height:30px;display:block}
+.marca b{font-family:var(--display);font-weight:800;font-size:1.32rem;letter-spacing:-.03em}
+.navcta{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;
+  font-weight:600;color:var(--pitch-deep);background:var(--tiza);
+  padding:10px 18px;border-radius:999px;text-decoration:none;white-space:nowrap;
+  transition:transform .18s ease,background .18s ease}
+.navcta:hover{transform:translateY(-2px);background:#fff}
+
+/* ---------- portada ---------- */
+.portada{position:relative;background:var(--pitch-deep);color:var(--tiza);
+  padding:clamp(96px,13vh,190px) 0 0;overflow:hidden;isolation:isolate}
+/* Dos manchas de luz y el arco del encabezado de la app: el fondo respira sin
+   una sola imagen. */
+.portada::before{content:"";position:absolute;inset:0;z-index:-2;
+  background:
+    radial-gradient(120% 90% at 78% -8%, rgba(226,100,58,.30), transparent 58%),
+    radial-gradient(95% 75% at 8% 108%, rgba(61,138,102,.38), transparent 62%),
+    linear-gradient(168deg,var(--pitch),var(--pitch-night));}
+.portada::after{content:"";position:absolute;z-index:-1;right:-14vw;top:-18vw;
+  width:58vw;height:58vw;border-radius:50%;border:1.5px solid rgba(255,255,255,.10)}
+.portada .eyebrow{color:var(--accent-soft)}
+.portada h1{margin:.14em 0 0;max-width:14ch}
+/* El signo de pregunta se sale de la caja: es el detalle que hace que el
+   titular se lea como un gesto y no como un texto centrado. */
+.portada h1 .q{color:var(--accent);display:inline-block}
+.bajada{font-size:clamp(1.05rem,2vw,1.4rem);color:#c3d3c9;max-width:46ch;margin-top:26px}
+.acciones{display:flex;flex-wrap:wrap;gap:12px;margin-top:34px;align-items:center}
+@media(max-width:560px){
+  .btn{padding:15px 24px;font-size:.98rem}
+  .acciones{gap:10px}
+  .gratis{width:100%;margin-top:2px}
+}
+.btn{display:inline-flex;align-items:center;gap:10px;font-family:var(--texto);font-weight:700;
+  font-size:1.03rem;padding:17px 32px;border-radius:999px;text-decoration:none;
+  transition:transform .18s ease,box-shadow .18s ease;border:1.5px solid transparent}
+.btn.fuerte{background:var(--accent);color:#fff;
+  box-shadow:0 14px 34px -14px rgba(226,100,58,.9)}
+.btn.fuerte:hover{transform:translateY(-3px);box-shadow:0 20px 42px -14px rgba(226,100,58,1)}
+.btn.borde{border-color:rgba(255,255,255,.28);color:var(--tiza)}
+.btn.borde:hover{border-color:rgba(255,255,255,.6);transform:translateY(-3px)}
+.gratis{font-family:var(--mono);font-size:12px;letter-spacing:.1em;color:#8fa79a;
+  text-transform:uppercase}
+
+/* Los teléfonos de la portada: el principal derecho y dos apoyados detrás,
+   rotados. El recorte de abajo hace que la pantalla siga fuera del cuadro. */
+/* Los tres van en flujo normal y se solapan con márgenes negativos. Con
+   position:absolute los hijos de un flex ignoran justify-content y hay que
+   calcular cada posición a mano; así el centrado lo resuelve el navegador.
+   El alto recortado hace que las pantallas sigan fuera del cuadro. */
+.telefonos{margin-top:clamp(48px,7vw,86px);height:clamp(300px,38vw,470px);
+  display:flex;justify-content:center;align-items:flex-start}
+.tel{flex:none;border-radius:30px;overflow:hidden;
+  border:7px solid #0a1712;background:#0a1712;
+  box-shadow:0 40px 90px -30px rgba(0,0,0,.85),0 0 0 1px rgba(255,255,255,.07)}
+.tel img{display:block;width:100%;height:auto}
+.tel.centro{width:clamp(215px,23vw,300px);z-index:3}
+.tel.izq,.tel.der{width:clamp(168px,18vw,235px);z-index:2;opacity:.88}
+.tel.izq{transform:rotate(-8deg) translateY(30px);margin-right:clamp(-64px,-4vw,-40px)}
+.tel.der{transform:rotate(8deg) translateY(30px);margin-left:clamp(-64px,-4vw,-40px)}
+@media(max-width:700px){.tel.izq,.tel.der{display:none}
+  .tel.centro{width:min(74vw,290px)}}
+
+/* ---------- cinta ---------- */
+/* Una tira que se desplaza sola con lo que la app registra. Es literal: son los
+   nombres de las secciones del producto, no adjetivos de marketing. */
+.cinta{background:var(--accent);color:#fff;padding:16px 0;overflow:hidden;
+  border-top:1px solid rgba(0,0,0,.08)}
+.cinta .pista{display:flex;gap:44px;width:max-content;animation:correr 34s linear infinite}
+.cinta span{font-family:var(--display);font-weight:700;font-size:clamp(1.1rem,2.3vw,1.6rem);
+  letter-spacing:-.02em;white-space:nowrap;display:flex;align-items:center;gap:44px}
+.cinta span::after{content:"◆";font-size:.55em;opacity:.65}
+@keyframes correr{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* ---------- secciones ---------- */
+.seccion{padding:clamp(76px,11vw,148px) 0}
+.clara{background:var(--bg)}
+.oscura{background:var(--pitch-deep);color:var(--tiza)}
+.oscura .eyebrow{color:var(--accent-soft)}
+.oscura p{color:#bccec3}
+.titulo{max-width:19ch}
+.entrada{margin-top:22px;font-size:clamp(1.02rem,1.6vw,1.22rem);max-width:56ch;color:var(--ink-soft)}
+
+/* Las cuatro cosas que registra, con los íconos del propio producto. */
+.grilla{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+  gap:18px;margin-top:clamp(40px,5vw,64px)}
+.pieza{background:var(--surface);border:1px solid var(--line);border-radius:22px;
+  padding:30px 26px 34px;transition:transform .25s ease,box-shadow .25s ease}
+.pieza:hover{transform:translateY(-6px);box-shadow:0 26px 50px -30px rgba(20,53,39,.5)}
+.pieza .ico{width:46px;height:46px;border-radius:14px;display:grid;place-items:center;
+  margin-bottom:20px}
+.pieza .ico svg{width:24px;height:24px}
+.pieza h3{font-size:1.32rem;letter-spacing:-.02em;line-height:1.1}
+.pieza p{margin-top:9px;color:var(--ink-soft);font-size:.97rem;line-height:1.5}
+
+/* Bloque a dos columnas que alterna el lado de la imagen. */
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:clamp(40px,6vw,96px);align-items:center}
+.duo .texto{min-width:0}
+@media(max-width:860px){.duo{grid-template-columns:1fr}.duo.invertido .marco{order:-1}}
+.marco{position:relative;justify-self:center;width:min(100%,310px);
+  border-radius:32px;overflow:hidden;border:8px solid #0a1712;background:#0a1712;
+  box-shadow:0 44px 90px -38px rgba(0,0,0,.7)}
+.marco img{display:block;width:100%;height:auto}
+/* El resplandor detrás del teléfono, del color de la sección. */
+.marco::before{content:"";position:absolute;inset:-14% -22%;z-index:-1;border-radius:50%;
+  background:radial-gradient(closest-side,rgba(226,100,58,.35),transparent)}
+
+/* ---------- la sección de la honestidad ---------- */
+/* El argumento más fuerte del producto no es una función: es que se niega a
+   mentirte con un porcentaje inventado. Se le da el tamaño que merece. */
+.honestidad{background:var(--pitch-night);color:var(--tiza);text-align:center;
+  padding:clamp(86px,13vw,170px) 0}
+.honestidad .numerote{font-family:var(--display);font-weight:800;
+  font-size:clamp(5rem,20vw,16rem);line-height:.82;letter-spacing:-.05em;
+  background:linear-gradient(175deg,var(--tiza) 30%,rgba(238,243,239,.18));
+  -webkit-background-clip:text;background-clip:text;color:transparent}
+.honestidad .tachado{position:relative;display:inline-block}
+.honestidad .tachado::after{content:"";position:absolute;left:-4%;right:-4%;top:52%;
+  height:clamp(6px,1.4vw,14px);background:var(--accent);border-radius:99px;
+  transform:rotate(-7deg)}
+.honestidad .dice{font-size:clamp(1.3rem,3.4vw,2.5rem);font-family:var(--display);
+  font-weight:700;letter-spacing:-.03em;margin-top:34px;line-height:1.14}
+.honestidad .dice em{color:var(--accent);font-style:normal}
+.honestidad .pie{color:#93a99d;max-width:50ch;margin:26px auto 0;font-size:1.04rem}
+
+/* ---------- privacidad ---------- */
+.lista{list-style:none;margin-top:34px;display:grid;gap:14px}
+.lista li{display:flex;gap:14px;align-items:flex-start;font-size:1.04rem}
+.lista svg{width:22px;height:22px;flex:none;margin-top:3px;color:var(--accent)}
+
+/* ---------- cierre ---------- */
+.cierre{background:linear-gradient(160deg,var(--accent),var(--accent-deep));
+  color:#fff;text-align:center;padding:clamp(80px,12vw,150px) 0;position:relative;overflow:hidden}
+.cierre::after{content:"";position:absolute;left:-10vw;bottom:-24vw;width:52vw;height:52vw;
+  border-radius:50%;border:1.5px solid rgba(255,255,255,.18)}
+.cierre h2{max-width:16ch;margin:12px auto 0}
+.cierre .btn.fuerte{background:var(--tiza);color:var(--pitch-deep);margin-top:38px;
+  box-shadow:0 18px 40px -16px rgba(0,0,0,.5)}
+
+footer{background:var(--pitch-night);color:#8fa79a;padding:56px 0 46px;font-size:.92rem}
+footer .env{display:flex;flex-wrap:wrap;gap:20px 34px;justify-content:space-between;align-items:center}
+footer a{color:#c3d3c9;text-decoration:none;border-bottom:1px solid rgba(195,211,201,.28);
+  padding-bottom:1px}
+footer a:hover{color:#fff;border-bottom-color:#fff}
+footer nav{display:flex;flex-wrap:wrap;gap:22px}
+
+/* ---------- aparición al hacer scroll ---------- */
+.rev{opacity:0;transform:translateY(34px);
+  transition:opacity .7s cubic-bezier(.16,.84,.44,1),transform .7s cubic-bezier(.16,.84,.44,1)}
+.rev.visible{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .rev{opacity:1;transform:none;transition:none}
+  .cinta .pista{animation:none}
+  .btn:hover,.pieza:hover,.navcta:hover{transform:none}
+}
+</style>
+</head>
+<body>
+
+<header class="nav" id="nav">
+  <div class="env">
+    <a class="marca" href="#">
+      <svg viewBox="0 0 512 512" aria-hidden="true">
+        <rect width="512" height="512" rx="110" fill="#1d4b39"/>
+        <g transform="translate(256 256) skewX(-10) translate(-256 -256)">
+          <text x="256" y="366" text-anchor="middle" fill="#eef3ef" font-family="Bricolage Grotesque"
+            font-weight="800" font-size="360">T</text>
+          <rect x="131" y="400" width="250" height="30" rx="15" fill="#e2643a"/>
+        </g>
+      </svg>
+      <b>Tenaz</b>
+    </a>
+    <a class="navcta" href="https://app.tenaz.com.ar">Entrar</a>
+  </div>
+</header>
+
+<!-- ============ PORTADA ============ -->
+<section class="portada">
+  <div class="env">
+    <p class="eyebrow">Tenaz · entrenamiento, comida y bienestar</p>
+    <h1 class="gigante">¿Cómo<br>venís<span class="q">?</span></h1>
+    <p class="bajada">Entrenamiento, comida, ánimo y descanso. Anotás tu día en menos de un
+      minuto — y al final del mes Tenaz te cuenta qué pasó.</p>
+    <div class="acciones">
+      <a class="btn fuerte" href="https://app.tenaz.com.ar">Empezar ahora</a>
+      <a class="btn borde" href="#que-registra">Ver cómo funciona</a>
+      <span class="gratis">Sin instalar nada</span>
+    </div>
+  </div>
+
+  <div class="telefonos">
+    <div class="tel izq"><img src="img/progreso.webp" width="640" height="1385"
+      alt="Pantalla de progreso con peso, calorías y hábitos" loading="lazy"></div>
+    <div class="tel centro"><img src="img/calendario-claro.webp" width="640" height="1385"
+      alt="El calendario de Tenaz con el mes registrado día por día" fetchpriority="high"></div>
+    <div class="tel der"><img src="img/diario.webp" width="640" height="1385"
+      alt="El diario personal en modo oscuro" loading="lazy"></div>
+  </div>
+</section>
+
+<div class="cinta" aria-hidden="true">
+  <div class="pista">
+    <span>Gimnasio</span><span>Comida</span><span>Hidratación</span><span>Ánimo</span>
+    <span>Sueño</span><span>Peso</span><span>31 deportes</span><span>Kinesiología</span>
+    <span>Ciclo</span><span>Diario</span>
+    <span>Gimnasio</span><span>Comida</span><span>Hidratación</span><span>Ánimo</span>
+    <span>Sueño</span><span>Peso</span><span>31 deportes</span><span>Kinesiología</span>
+    <span>Ciclo</span><span>Diario</span>
+  </div>
+</div>
+
+<!-- ============ QUÉ REGISTRA ============ -->
+<section class="seccion clara" id="que-registra">
+  <div class="env">
+    <p class="eyebrow rev" style="color:var(--accent)">Un solo lugar</p>
+    <h2 class="grande titulo rev">Tu día entero, no sólo el entrenamiento.</h2>
+    <p class="entrada rev">La mayoría de las apps te miden una cosa. Un día real tiene muchas
+      más, y todas se afectan entre sí: dormiste mal, comiste peor, no fuiste.
+      Tenaz las anota juntas para que puedas verlo.</p>
+
+    <div class="grilla">
+      <article class="pieza rev">
+        <div class="ico" style="background:rgba(61,138,102,.14)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#2f8f5b" stroke-width="1.9"
+            stroke-linecap="round" aria-hidden="true"><path d="M4 9.5v5M7 7.5v9M17 7.5v9M20 9.5v5M7 12h10"/></svg>
+        </div>
+        <h3>Entrenamiento</h3>
+        <p>Gimnasio con rutinas y récords, 31 deportes, y sesiones de kinesiología o
+           recuperación que no cuentan como falta.</p>
+      </article>
+
+      <article class="pieza rev">
+        <div class="ico" style="background:rgba(226,100,58,.14)">
+          <svg viewBox="0 0 16 16" fill="#e2643a" aria-hidden="true">
+            <path d="M4 2h1.1v4.2h.9V2h1.1v4.4a2 2 0 0 1-1.4 1.9V14H5.4V8.3A2 2 0 0 1 4 6.4V2z"/>
+            <path d="M11.4 2c.9 0 1.6 1.4 1.6 3.2 0 1.4-.4 2.5-1 2.9V14h-1.2V8.1c-.6-.4-1-1.5-1-2.9C9.8 3.4 10.5 2 11.4 2z"/></svg>
+        </div>
+        <h3>Comida y calorías</h3>
+        <p>Escribís lo que comiste, o le sacás una foto. Tenaz estima las calorías y vos
+           ajustás la porción si la pifió.</p>
+      </article>
+
+      <article class="pieza rev">
+        <div class="ico" style="background:rgba(47,120,180,.14)">
+          <svg viewBox="0 0 16 16" fill="#2f78b4" aria-hidden="true">
+            <path d="M8 1.6s4.3 4.6 4.3 7.5A4.3 4.3 0 0 1 8 14.4 4.3 4.3 0 0 1 3.7 9.1C3.7 6.2 8 1.6 8 1.6z"/></svg>
+        </div>
+        <h3>Hidratación y hábitos</h3>
+        <p>Agua, alcohol y tabaco, con la racha de días a la vista. Lo que no querés
+           registrar, lo apagás.</p>
+      </article>
+
+      <article class="pieza rev">
+        <div class="ico" style="background:rgba(139,92,246,.14)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#8b5cf6" stroke-width="1.9"
+            stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M12 7.6v11.9"/><path d="M12 7.6C12 6.2 9.9 4.8 7 4.8H3.6v11.8H7c2.9 0 5 1.4 5 2.9"/>
+            <path d="M12 7.6c0-1.4 2.1-2.8 5-2.8h3.4v11.8H17c-2.9 0-5 1.4-5 2.9"/></svg>
+        </div>
+        <h3>Ánimo, sueño y diario</h3>
+        <p>Cómo dormiste, cómo estás, y un diario para lo que no entra en un número.
+           Con seguimiento de ciclo si te sirve.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ EL NARRADOR ============ -->
+<section class="seccion oscura">
+  <div class="env duo">
+    <div class="texto">
+      <p class="eyebrow rev">Lo que nadie más hace</p>
+      <h2 class="grande rev" style="max-width:15ch">Al final del mes, te lo cuenta.</h2>
+      <p class="entrada rev" style="color:#bccec3">Un informe que lee todo lo que anotaste y
+        te dice qué pasó de verdad: cuándo aflojaste, qué semana fue la mejor, cómo se movió
+        tu peso contra lo que comiste. No son gráficos para que los interpretes vos.</p>
+      <p class="entrada rev" style="color:#bccec3">Y tu diario puede volverse un relato — de un
+        mes, de un año, o de toda tu vida registrada.</p>
+    </div>
+    <div class="marco rev"><img src="img/diario.webp" width="640" height="1385"
+      alt="El diario personal de Tenaz, con el narrador" loading="lazy"></div>
+  </div>
+</section>
+
+<!-- ============ HONESTIDAD ============ -->
+<section class="honestidad">
+  <div class="env">
+    <p class="eyebrow rev" style="color:var(--accent-soft)">La diferencia</p>
+    <div class="numerote rev"><span class="tachado">10%</span></div>
+    <p class="dice rev">Registraste 3 días de 30.<br>Eso no es <em>10% de cumplimiento</em>.<br>Eso es no saber.</p>
+    <p class="pie rev">Tenaz no cuenta los días que no cargaste. Si registraste pocos, te lo
+      dice en vez de inventarte un número que te haga sentir mal. Es la única forma de que
+      la cifra que ves signifique algo.</p>
+  </div>
+</section>
+
+<!-- ============ ARRANQUE ============ -->
+<section class="seccion clara">
+  <div class="env duo invertido">
+    <div class="marco rev"><img src="img/onboarding.webp" width="640" height="1385"
+      alt="El onboarding de Tenaz, paso a paso" loading="lazy"></div>
+    <div class="texto">
+      <p class="eyebrow rev" style="color:var(--accent)">Empezar</p>
+      <h2 class="grande rev" style="max-width:14ch">Siete preguntas y estás adentro.</h2>
+      <p class="entrada rev">Sin formularios de veinte campos. Te preguntamos lo justo para
+        calcular tu objetivo calórico, te lo mostramos al toque, y después ajustás lo que
+        quieras. Si no querés dar un dato, lo salteás.</p>
+      <p class="entrada rev">Funciona en el navegador y se instala como app. Anda sin
+        conexión: lo que cargues se sube solo cuando vuelva la señal.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PRIVACIDAD ============ -->
+<section class="seccion oscura">
+  <div class="env angosto">
+    <p class="eyebrow rev">Tus datos</p>
+    <h2 class="grande rev" style="max-width:17ch">Son tuyos, y podés llevártelos.</h2>
+    <ul class="lista rev">
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+        stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 12.5l5 5 10-11"/></svg>
+        <span>No vendemos ni compartimos tus datos de salud. Con nadie.</span></li>
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+        stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 12.5l5 5 10-11"/></svg>
+        <span>Borrás tu cuenta desde la app, en el momento, sin pedirle permiso a nadie.</span></li>
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+        stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 12.5l5 5 10-11"/></svg>
+        <span>Cada sección se apaga por separado. Lo que no querés registrar, no se registra.</span></li>
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+        stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 12.5l5 5 10-11"/></svg>
+        <span>Nada de publicidad y nada de rankings sociales. Sos vos con tu registro.</span></li>
+    </ul>
+    <p class="entrada rev" style="color:#bccec3">Está todo escrito en la
+      <a href="privacidad.html" style="color:var(--accent-soft)">Política de Privacidad</a> y en
+      <a href="borrar-cuenta.html" style="color:var(--accent-soft)">cómo eliminar tu cuenta</a>.</p>
+  </div>
+</section>
+
+<!-- ============ CIERRE ============ -->
+<section class="cierre">
+  <div class="env">
+    <p class="eyebrow rev" style="color:rgba(255,255,255,.75)">Hoy es un buen día</p>
+    <h2 class="grande rev">El primer día es el más fácil.</h2>
+    <a class="btn fuerte rev" href="https://app.tenaz.com.ar">Empezar ahora</a>
+  </div>
+</section>
+
+<footer>
+  <div class="env">
+    <span>© <span id="anio">2026</span> Tenaz · Hecho en Argentina</span>
+    <nav>
+      <a href="privacidad.html">Privacidad</a>
+      <a href="borrar-cuenta.html">Eliminar tu cuenta</a>
+      <a href="https://app.tenaz.com.ar">Entrar a la app</a>
+    </nav>
+  </div>
+</footer>
+
+<script>
+document.getElementById("anio").textContent = new Date().getFullYear();
+
+/* La barra se opaca recién cuando dejás la portada: arriba de todo tiene que
+   estar transparente o le come el aire al titular. */
+const nav = document.getElementById("nav");
+const alSc = () => nav.classList.toggle("pegada", window.scrollY > 40);
+addEventListener("scroll", alSc, { passive: true });
+alSc();
+
+/* Aparición al entrar en pantalla. Se desconecta cada elemento después de
+   mostrarlo: no hace falta seguir observando algo que ya apareció. Si el
+   navegador no tiene IntersectionObserver, todo queda visible de entrada. */
+if ("IntersectionObserver" in window) {
+  const io = new IntersectionObserver((filas) => {
+    filas.forEach((f) => {
+      if (!f.isIntersecting) return;
+      f.target.style.transitionDelay = (f.target.dataset.retraso || 0) + "ms";
+      f.target.classList.add("visible");
+      io.unobserve(f.target);
+    });
+  }, { rootMargin: "0px 0px -12% 0px", threshold: .08 });
+  document.querySelectorAll(".rev").forEach((n, i) => {
+    /* Los hermanos entran escalonados, que es lo que da la sensación de que la
+       página se arma sola en vez de aparecer de golpe. */
+    const hermanos = [...n.parentElement.children].filter((x) => x.classList.contains("rev"));
+    n.dataset.retraso = Math.min(hermanos.indexOf(n), 4) * 90;
+    io.observe(n);
+  });
+} else {
+  document.querySelectorAll(".rev").forEach((n) => n.classList.add("visible"));
+}
+</script>
+</body>
+</html>
