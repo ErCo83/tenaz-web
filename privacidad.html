@@ -115,20 +115,48 @@
   <p>Tus datos se almacenan de forma segura en la infraestructura de <strong>Supabase</strong>, un proveedor de servicios de base de datos y autenticación. La información se protege mediante seguridad a nivel de fila (Row Level Security), lo que significa que cada usuario solo puede acceder a sus propios datos. Nadie más puede ver tu información privada.</p>
 
   <h2 id="s4">4. Uso de inteligencia artificial</h2>
-  <p>La App ofrece dos funciones que utilizan inteligencia artificial:</p>
-  <h3>a) Estimador de calorías</h3>
-  <p>Cuando pedís estimar las calorías de una comida, la descripción de texto que escribís se envía a un proveedor de inteligencia artificial (<strong>Anthropic</strong>, mediante su servicio Claude) para obtener la estimación.</p>
-  <h3>b) El Narrador de tu diario</h3>
-  <p>Esta es una función que iniciás siempre vos, de forma voluntaria. Cuando pedís generar una historia, los datos del período que elegís (que pueden incluir tus entradas de diario, sueños, estado de ánimo, entrenamientos y comidas) se envían al mismo proveedor de inteligencia artificial (Anthropic / Claude) para crear un relato de ficción.</p>
+  <p>La App usa un proveedor de inteligencia artificial (<strong>Anthropic</strong>, mediante su
+     servicio Claude) en cuatro funciones. En todas, los datos se envían para obtener una
+     respuesta y <strong>no se guardan del lado del proveedor</strong>.</p>
+
   <div class="highlight">
-    <strong>Puntos importantes sobre esta función:</strong>
-    <ul style="margin-top:10px;margin-bottom:0">
-      <li>La generación nunca es automática: solo ocurre cuando vos la solicitás explícitamente.</li>
-      <li>Podés elegir qué datos incluir y cuáles no antes de generar cada historia.</li>
-      <li>Según las condiciones de su API, el proveedor de inteligencia artificial no utiliza los datos enviados para entrenar sus modelos.</li>
-      <li>Si preferís no usar esta función, simplemente no la actives; el resto de la App funciona con normalidad.</li>
-    </ul>
+    <strong>Ninguna de las cuatro se activa sola.</strong> Todas ocurren cuando vos las pedís.
+    Si no las usás, el resto de la App funciona con normalidad.
   </div>
+
+  <h3>a) Estimador de calorías</h3>
+  <p>Cuando pedís estimar las calorías de una comida se envía lo que hayas cargado:</p>
+  <ul>
+    <li>La <strong>descripción de texto</strong> que escribís, y/o</li>
+    <li>La <strong>foto</strong> del plato, si elegís sacarle una.</li>
+  </ul>
+  <p>La foto se usa únicamente para obtener la estimación en ese momento:
+     <strong>no se almacena</strong> ni en la App ni en nuestros servidores. Lo único que se
+     guarda es el número de calorías y, si corresponde, el nombre del alimento.</p>
+
+  <h3>b) Sugerencias de comida</h3>
+  <p>Cuando pedís una sugerencia se envían tus <strong>gustos y restricciones alimentarias</strong>,
+     tu objetivo calórico y lo que llevás comido ese día, para proponerte opciones.</p>
+
+  <h3>c) Informe mensual</h3>
+  <p>Cuando pedís el informe de un mes se envía el <strong>resumen de ese mes</strong>:
+     entrenamientos, comidas, peso, hidratación, ánimo y descanso, en forma de cifras y
+     totales por día, para redactar el análisis.</p>
+
+  <h3>d) El Narrador de tu diario</h3>
+  <p>Cuando pedís generar una historia se envían los datos del período que elijas, que pueden
+     incluir tus <strong>entradas de diario</strong>, sueños, estado de ánimo, entrenamientos y
+     comidas, para crear un relato.</p>
+  <ul>
+    <li><strong>Elegís qué incluir y qué no</strong> antes de generar cada historia.</li>
+    <li>Según las condiciones de su API, el proveedor <strong>no utiliza los datos enviados para
+        entrenar sus modelos</strong>.</li>
+  </ul>
+
+  <h3>Sobre el dictado por voz</h3>
+  <p>El diario permite dictar en vez de escribir. Esa función la provee <strong>tu navegador</strong>
+     (en Android, Google), que procesa el audio con sus propios servicios y según sus políticas.
+     La App recibe únicamente el texto ya transcripto: <strong>no accede al audio ni lo guarda</strong>.</p>
 
   <h2 id="s5">5. Con quién compartimos tu información</h2>
   <p>Solo compartimos datos con los proveedores estrictamente necesarios para que la App funcione:</p>
